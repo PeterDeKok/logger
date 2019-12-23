@@ -52,6 +52,11 @@ func init() {
 	} else {
 		// Cleanly close log file on shutdown
 		trap.OnKill(func() {
+			if l.fp == nil {
+				// Ignore when no file pointer specified
+				return
+			}
+
 			if err := l.fp.Close(); err != nil {
 				l.l.WithError(err).Error("Failed to close log file")
 			}
