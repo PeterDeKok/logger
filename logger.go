@@ -34,17 +34,26 @@ var (
 )
 
 func init() {
-	config.Add(&struct{Logger *Config}{Logger: cnf})
+	if argumentExists("-c") {
+		config.Singleton().Add(&struct{ Logger *Config }{Logger: cnf})
+	}
 
 	l = &logWrapper{
 		log: logrus.New(),
 	}
 
 	l.log.SetLevel(logrus.DebugLevel)
+	l.log.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
 
 	l.log.Debug("Initializing logger")
 
 	l.l = l.log.WithField("cmd", filepath.Base(os.Args[0]))
+
+	if hn, err := os.Hostname(); err == nil {
+		l.l = l.l.WithField("hostname", hn)
+	} else {
+		l.l.WithError(err).Error("Could not determine hostname")
+	}
 
 	// Open logfile if applicable, ignore errors (after logging to STDOUT of course)
 	if err := Reload(); err != nil {
@@ -68,12 +77,6 @@ func init() {
 				l.l.WithError(err).Error("Failed to reload log file")
 			}
 		})
-	}
-
-	if hn, err := os.Hostname(); err == nil {
-		l.l = l.l.WithField("hostname", hn)
-	} else {
-		l.l.WithError(err).Error("Could not determine hostname")
 	}
 
 	l.l.Debug("Log initialized")
@@ -104,7 +107,7 @@ func Reload() error {
 
 	l.l.Debug("About to (re)load log file")
 
-	if cnf.File == "" {
+	if cnf == nil || cnf.File == "" {
 		l.l.Debug("Not using log file, only stdout")
 
 		l.log.SetOutput(os.Stdout)
@@ -163,4 +166,14 @@ func Reload() error {
 	}
 
 	return nil
+}
+
+func argumentExists(arg string) bool {
+	for _, a := range os.Args[1:] {
+		if a == arg {
+			return true
+		}
+	}
+
+	return false
 }

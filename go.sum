@@ -23,5 +23,7 @@ golang.org/x/sys v0.0.0-20191204072324-ce4227a45e2e h1:9vRrk9YW2BTzLP0VCB9ZDjU4c
 golang.org/x/sys v0.0.0-20191204072324-ce4227a45e2e/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 peterdekok.nl/gotools/config v0.0.1 h1:xjynnJ4jBvmW7G9YKRxfShfVlnYFn9w5AC/uSs1P/aM=
 peterdekok.nl/gotools/config v0.0.1/go.mod h1:scDCf9KVjZJDcXApHQOR5SawNubN/gr90NRuutnkUTM=
+peterdekok.nl/gotools/config v1.0.0 h1:B2BAdeJIWjhPPtoY92KNq46wBnjCJYYWBABX6FxQhl4=
+peterdekok.nl/gotools/config v1.0.0/go.mod h1:scDCf9KVjZJDcXApHQOR5SawNubN/gr90NRuutnkUTM=
 peterdekok.nl/gotools/trap v0.0.3 h1:UKthyLDQMVhZm2XqdGbKCGEwwTD1RgWdYTI1nZvYDhs=
 peterdekok.nl/gotools/trap v0.0.3/go.mod h1:LYaE2PBYhFm/sLjs8kFVRPK7jMvBFkrrJ9PAM4pXApk=
